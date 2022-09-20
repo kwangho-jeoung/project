@@ -1,0 +1,77 @@
+.main-video{
+    width:1550px;
+    height:700px;
+    background-image:url(./images/bg2.jpg);
+    background-size:cover;
+}
+
+.main-video .inner{
+    width:900px;
+    height:600px;
+    margin:0 auto;
+}
+
+.main-video .inner video{
+    height:600px;
+    width:auto;
+    margin:0 auto;
+    margin: 10px 0;
+    justify-content:center;
+ }
+
+.btn{
+    width:200px; 
+    padding:12px;
+    border:2px solid #000;
+    border-radius:4px;
+    box-sizing:border-box;
+    font-size:16px;
+    font-weight:700;
+    background-color:#000;
+    color:#fff;
+    text-align:center;
+    cursor:pointer;
+    display:block;
+    transition:.4s;
+    margin:0 auto;
+    text-decoration: none;
+ }
+
+ .btn:hover{
+    background-color:pink;
+    border:2px solid pink;
+    color:#000;
+ }
+
+ 
+.main-video .inner .swiper-button-prev,
+.main-video .inner .swiper-button-next{
+    width:42px;
+    height:42px;
+    border:2px solid #333;
+    border-radius:50%;
+    top:300px;
+    z-index:1;
+    color:#333;
+}
+
+.main-video .inner .swiper-button-prev{
+    left:50%;
+    margin-left:-500px;
+}
+
+.main-video .inner .swiper-button-next{
+    right:50%;
+    margin-right:-545px;
+}
+
+.main-video .inner .swiper-button-prev:hover,
+.main-video .inner .swiper-button-next:hover{
+    background-color:#333;
+    color:#fff;
+}
+
+.main-video .inner .swiper-button-prev::after,
+.main-video .inner .swiper-button-next::after{
+    display:none;
+}
