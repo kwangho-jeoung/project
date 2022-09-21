@@ -33,13 +33,17 @@ function Bullet(){
             if(
                 this.y <= enemyList[i].y && 
                 this.x >= enemyList[i].x && 
-                this.x <= enemyList[i].x+40
+                this.x <= enemyList[i].x+40 
                 ){
                 //총알이 적을 맞추면 적군 우주선 없어짐, 점수 획득
                 score++;
                 this.alive = false; //죽은 총알
                 enemyList.splice(i,1);
             }
+            if(
+                this.y <= 0
+            )
+            this.alive = false;
         }
     };
 }
@@ -115,10 +119,10 @@ function createEnemy(){
 function update(){
     if(39 in keysDown){
         spaceshipX += 5; //우주선 속도
-    } //right
+    } //우주선이 오른쪽으로 이동
     if(37 in keysDown){
         spaceshipX -= 5;
-    } //left
+    } //우주선이 왼쪽으로 이동
 
     if(spaceshipX <=-20){
         spaceshipX=-20
