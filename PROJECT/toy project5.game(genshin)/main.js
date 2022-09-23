@@ -2,30 +2,30 @@ let canvas;
 let ctx;
 canvas = document.createElement("canvas")
 ctx = canvas.getContext("2d")
-canvas.width=400;
+canvas.width=700;
 canvas.height=700;
 document.body.appendChild(canvas);
 
-let backgroundImage,spaceshipImage,bulletImage,enemyImage,gameoverImage;
+let backgroundImage,heroImage,swordImage,enemyImage,gameoverImage;
 let gameOver=false // true이면 게임이 끝남, false 이면 게임이 지속
 let score=0;
 
 //우주선 좌표
-let spaceshipX = canvas.width/2-48
-let spaceshipY = canvas.height-96
+let heroX = canvas.width/2-128
+let heroY = canvas.height-256
 
-let bulletList = [] //총알들을 저장하느 리스트
-function Bullet(){
+let swordList = [] //무기들을 저장하는 리스트
+function Sword(){
     this.x=0
     this.y=0
     this.init=function(){
-        this.x = spaceshipX + 36;
-        this.y = spaceshipY;
-        this.alive = true; //true면 살아있는 총알, false면 죽은 총알
-        bulletList.push(this);
+        this.x = heroX + 100;
+        this.y = heroY;
+        this.alive = true; //true면 살아있는, false면 죽은 무기
+        swordList.push(this);
     };
     this.update = function(){
-        this.y -= 7;
+        this.y -= 5;
     };
 
     this.checkHit = function(){
@@ -33,7 +33,7 @@ function Bullet(){
             if(
                 this.y <= enemyList[i].y && 
                 this.x >= enemyList[i].x && 
-                this.x <= enemyList[i].x+40 
+                this.x <= enemyList[i].x+96
                 ){
                 //총알이 적을 맞추면 적군 우주선 없어짐, 점수 획득
                 score++;
@@ -59,13 +59,13 @@ function Enemy(){
     this.y=0;
     this.init = function(){
         this.y = 0
-        this.x = generateRandomValue(0,canvas.width-48)
+        this.x = generateRandomValue(30,canvas.width-150)
         enemyList.push(this);
     };
     this.update=function(){
-        this.y += 2; // 적군의 속도 조절
+        this.y += 1.5; // 적군의 속도 조절
 
-        if(this.y>= canvas.height-48){
+        if(this.y>= canvas.height-96){
             gameOver = true;
             console.log("gameOver");
         }
@@ -74,16 +74,16 @@ function Enemy(){
 
 function loadImage(){
     backgroundImage = new Image();
-    backgroundImage.src="images/gamebackground2.gif";
+    backgroundImage.src="images/다운로드.jpg";
 
-    spaceshipImage = new Image();
-    spaceshipImage.src="images/icons8-enterprise-ncc-1701-b-96.png";
+    heroImage = new Image();
+    heroImage.src="images/UI_AvatarIcon_Nilou.png";
     
-    bulletImage = new Image();
-    bulletImage.src="images/icons8-bullet-24.png";
+    swordImage = new Image();
+    swordImage.src="images/icons8-heart-48.png";
 
     enemyImage = new Image();
-    enemyImage.src="images/icons8-reman-warbird-scimitar-48.png";
+    enemyImage.src="images/icons8-genshin-impact-96.png";
 
     gameoverImage = new Image();
     gameoverImage.src="images/gameover3.png.png";
@@ -106,7 +106,7 @@ function createSword(){
     console.log("총알 생성");
     let b = new Sword(); //총알 하나 생성
     b.init();
-    console.log("새로운 총알 리스트",bulletList);
+    console.log("새로운 총알 리스트",swordList);
 }
 
 function createEnemy(){
@@ -118,17 +118,17 @@ function createEnemy(){
 
 function update(){
     if(39 in keysDown){
-        spaceshipX += 5; //우주선 속도
+        heroX += 5; //우주선 속도
     } //우주선이 오른쪽으로 이동
     if(37 in keysDown){
-        spaceshipX -= 5;
+        heroX -= 5;
     } //우주선이 왼쪽으로 이동
 
-    if(spaceshipX <=-20){
-        spaceshipX=-20
+    if(heroX <=-20){
+        heroX=-20
     }
-    if(spaceshipX >= canvas.width-78){
-        spaceshipX=canvas.width-78;
+    if(heroX >= canvas.width-240){
+        heroX=canvas.width-240;
     }
     //우주선의 좌표값이 무한대로 업데이트가 되는게 아닌! 캔버스 안에서만 이동
 
@@ -154,7 +154,7 @@ function render(){
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
     for(let i=0;i<swordList.length;i++){
-        if(bulletList[i].alive) {
+        if(swordList[i].alive) {
         ctx.drawImage(swordImage,swordList[i].x,swordList[i].y);
         }
     }
@@ -171,7 +171,7 @@ function main(){
     render(); //그려주고
     requestAnimationFrame(main)
     }else{
-        ctx.drawImage(gameoverImage,10,100,380,380);
+        ctx.drawImage(gameoverImage,60,30,550,550);
     }
 }
 
