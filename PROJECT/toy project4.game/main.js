@@ -97,14 +97,14 @@ function setupKeyboardListener(){
         delete keysDown[event.keyCode];
 
         if(event.keyCode == 32){
-            createSword(); //총알생성
+            createBullet(); //총알생성
         }
     })
 }
 
-function createSword(){
+function createBullet(){
     console.log("총알 생성");
-    let b = new Sword(); //총알 하나 생성
+    let b = new Bullet(); //총알 하나 생성
     b.init();
     console.log("새로운 총알 리스트",bulletList);
 }
@@ -133,10 +133,10 @@ function update(){
     //우주선의 좌표값이 무한대로 업데이트가 되는게 아닌! 캔버스 안에서만 이동
 
     //총알의 y좌표 업데이트 하는 함수 호출
-    for(let i=0;i<swordList.length;i++){
-        if(swordList[i].alive){
-        swordList[i].update();
-        swordList[i].checkHit();
+    for(let i=0;i<bulletList.length;i++){
+        if(bulletList[i].alive){
+        bulletList[i].update();
+        bulletList[i].checkHit();
       }
     }
 
@@ -149,13 +149,13 @@ function update(){
 
 function render(){
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(heroImage,heroX, heroY);
+    ctx.drawImage(spaceshipImage,spaceshipX, spaceshipY);
     ctx.fillText(`Score:${score}`, 20, 20)
     ctx.fillStyle = "white";
     ctx.font = "20px Arial";
-    for(let i=0;i<swordList.length;i++){
+    for(let i=0;i<bulletList.length;i++){
         if(bulletList[i].alive) {
-        ctx.drawImage(swordImage,swordList[i].x,swordList[i].y);
+        ctx.drawImage(bulletImage,bulletList[i].x,bulletList[i].y);
         }
     }
 
